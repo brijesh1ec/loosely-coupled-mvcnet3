@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/xsd/spring-objects.xsd">
+
+  <object id="AuthenticateController" singleton="false" type="WebPlatformMVCNet.Controllers.AuthenticateController, WebPlatformMVCNet">
+    <property name="UserService" ref="UserService"/>
+  </object>
+  <object id="AdministrationController" singleton="false" type="WebPlatformMVCNet.Controllers.AdministrationController, WebPlatformMVCNet">
+    <property name="UserService" ref="UserService"/>
+  </object>
+  <object id="ProductController" singleton="false" type="WebPlatformMVCNet.Controllers.ProductController, WebPlatformMVCNet">
+    <property name="UserService" ref="UserService"/>
+    <property name="ProductService" ref="ProductService"/>
+  </object>
+  <object id="OrderController" singleton="false" type="WebPlatformMVCNet.Controllers.OrderController, WebPlatformMVCNet">
+    <property name="UserService" ref="UserService"/>
+  </object>
+</objects>

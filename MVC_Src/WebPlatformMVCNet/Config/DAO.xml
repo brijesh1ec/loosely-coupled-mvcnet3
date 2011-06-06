@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.springframework.net http://www.springframework.net/xsd/spring-objects.xsd">
+
+  <object id="DBContext" type="WebPlatform.Data.MVCDbEntitiesConnection, WebPlatform.Data" singleton="true" scope="request">
+  </object>
+  <object id="UsersRepository" singleton="false" type="AdminRepository.UsersRepository, AdminRepository">
+    <property name="DBContext" ref="DBContext" />
+  </object>
+  <object id="ProductRepository" singleton="false" type="ProductsRepository.ProductRepository, ProductsRepository">
+    <property name="DBContext" ref="DBContext" />
+  </object>
+</objects>

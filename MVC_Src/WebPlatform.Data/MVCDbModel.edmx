@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MVCNetModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MVCNetModelStoreContainer">
+          <EntitySet Name="AccessToModuleFunctions" EntityType="MVCNetModel.Store.AccessToModuleFunctions" store:Type="Tables" store:Schema="dbo" store:Name="AccessToModuleFunctions">
+            <DefiningQuery>SELECT 
+      [AccessToModuleFunctions].[ID] AS [ID], 
+      [AccessToModuleFunctions].[UserID] AS [UserID], 
+      [AccessToModuleFunctions].[RoleID] AS [RoleID], 
+      [AccessToModuleFunctions].[ModuleFunctionID] AS [ModuleFunctionID], 
+      [AccessToModuleFunctions].[HasAccess] AS [HasAccess]
+      FROM [dbo].[AccessToModuleFunctions] AS [AccessToModuleFunctions]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Functions" EntityType="MVCNetModel.Store.Functions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Modules" EntityType="MVCNetModel.Store.Modules" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ModulesFunctions" EntityType="MVCNetModel.Store.ModulesFunctions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orders" EntityType="MVCNetModel.Store.Orders" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Products" EntityType="MVCNetModel.Store.Products" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Roles" EntityType="MVCNetModel.Store.Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="MVCNetModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_AccessToModuleFunctions_ModulesFunctions" Association="MVCNetModel.Store.FK_AccessToModuleFunctions_ModulesFunctions">
+            <End Role="ModulesFunctions" EntitySet="ModulesFunctions" />
+            <End Role="AccessToModuleFunctions" EntitySet="AccessToModuleFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessToModuleFunctions_Roles" Association="MVCNetModel.Store.FK_AccessToModuleFunctions_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="AccessToModuleFunctions" EntitySet="AccessToModuleFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessToModuleFunctions_Users" Association="MVCNetModel.Store.FK_AccessToModuleFunctions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AccessToModuleFunctions" EntitySet="AccessToModuleFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModulesFunctions_Functions" Association="MVCNetModel.Store.FK_ModulesFunctions_Functions">
+            <End Role="Functions" EntitySet="Functions" />
+            <End Role="ModulesFunctions" EntitySet="ModulesFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModulesFunctions_Modules" Association="MVCNetModel.Store.FK_ModulesFunctions_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="ModulesFunctions" EntitySet="ModulesFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Orders" Association="MVCNetModel.Store.FK_Product_Orders">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="MVCNetModel.Store.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'MVCNet.dbo.AccessToModuleFunctions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="AccessToModuleFunctions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="ModuleFunctionID" Type="int" />
+          <Property Name="HasAccess" Type="bit" />
+        </EntityType>
+        <EntityType Name="Functions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ModulesFunctions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ModuleID" Type="int" Nullable="false" />
+          <Property Name="FunctionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ClientNames" Type="nvarchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ProductDescription" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="UnitPrice" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Hash" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="Salt" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_AccessToModuleFunctions_ModulesFunctions">
+          <End Role="ModulesFunctions" Type="MVCNetModel.Store.ModulesFunctions" Multiplicity="0..1" />
+          <End Role="AccessToModuleFunctions" Type="MVCNetModel.Store.AccessToModuleFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModulesFunctions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessToModuleFunctions">
+              <PropertyRef Name="ModuleFunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessToModuleFunctions_Roles">
+          <End Role="Roles" Type="MVCNetModel.Store.Roles" Multiplicity="0..1" />
+          <End Role="AccessToModuleFunctions" Type="MVCNetModel.Store.AccessToModuleFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessToModuleFunctions">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessToModuleFunctions_Users">
+          <End Role="Users" Type="MVCNetModel.Store.Users" Multiplicity="0..1" />
+          <End Role="AccessToModuleFunctions" Type="MVCNetModel.Store.AccessToModuleFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessToModuleFunctions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModulesFunctions_Functions">
+          <End Role="Functions" Type="MVCNetModel.Store.Functions" Multiplicity="1" />
+          <End Role="ModulesFunctions" Type="MVCNetModel.Store.ModulesFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Functions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ModulesFunctions">
+              <PropertyRef Name="FunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModulesFunctions_Modules">
+          <End Role="Modules" Type="MVCNetModel.Store.Modules" Multiplicity="1" />
+          <End Role="ModulesFunctions" Type="MVCNetModel.Store.ModulesFunctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ModulesFunctions">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Orders">
+          <End Role="Products" Type="MVCNetModel.Store.Products" Multiplicity="1" />
+          <End Role="Orders" Type="MVCNetModel.Store.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="MVCNetModel.Store.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="MVCNetModel.Store.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVCNetModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MVCDbEntitiesConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessToModuleFunctions" EntityType="MVCNetModel.AccessToModuleFunction" />
+          <EntitySet Name="Functions" EntityType="MVCNetModel.Function" />
+          <EntitySet Name="Modules" EntityType="MVCNetModel.Module" />
+          <EntitySet Name="ModulesFunctions" EntityType="MVCNetModel.ModulesFunction" />
+          <EntitySet Name="Orders" EntityType="MVCNetModel.Order" />
+          <EntitySet Name="Products" EntityType="MVCNetModel.Product" />
+          <EntitySet Name="Roles" EntityType="MVCNetModel.Role" />
+          <EntitySet Name="Users" EntityType="MVCNetModel.User" />
+          <AssociationSet Name="FK_AccessToModuleFunctions_ModulesFunctions" Association="MVCNetModel.FK_AccessToModuleFunctions_ModulesFunctions">
+            <End Role="ModulesFunctions" EntitySet="ModulesFunctions" />
+            <End Role="AccessToModuleFunctions" EntitySet="AccessToModuleFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessToModuleFunctions_Roles" Association="MVCNetModel.FK_AccessToModuleFunctions_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="AccessToModuleFunctions" EntitySet="AccessToModuleFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AccessToModuleFunctions_Users" Association="MVCNetModel.FK_AccessToModuleFunctions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AccessToModuleFunctions" EntitySet="AccessToModuleFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModulesFunctions_Functions" Association="MVCNetModel.FK_ModulesFunctions_Functions">
+            <End Role="Functions" EntitySet="Functions" />
+            <End Role="ModulesFunctions" EntitySet="ModulesFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModulesFunctions_Modules" Association="MVCNetModel.FK_ModulesFunctions_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="ModulesFunctions" EntitySet="ModulesFunctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Orders" Association="MVCNetModel.FK_Product_Orders">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Roles" Association="MVCNetModel.FK_Users_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AccessToModuleFunction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="ModuleFunctionID" Type="Int32" />
+          <Property Name="HasAccess" Type="Boolean" />
+          <NavigationProperty Name="ModulesFunction" Relationship="MVCNetModel.FK_AccessToModuleFunctions_ModulesFunctions" FromRole="AccessToModuleFunctions" ToRole="ModulesFunctions" />
+          <NavigationProperty Name="Role" Relationship="MVCNetModel.FK_AccessToModuleFunctions_Roles" FromRole="AccessToModuleFunctions" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="MVCNetModel.FK_AccessToModuleFunctions_Users" FromRole="AccessToModuleFunctions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Function">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ModulesFunctions" Relationship="MVCNetModel.FK_ModulesFunctions_Functions" FromRole="Functions" ToRole="ModulesFunctions" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ModulesFunctions" Relationship="MVCNetModel.FK_ModulesFunctions_Modules" FromRole="Modules" ToRole="ModulesFunctions" />
+        </EntityType>
+        <EntityType Name="ModulesFunction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ModuleID" Type="Int32" Nullable="false" />
+          <Property Name="FunctionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AccessToModuleFunctions" Relationship="MVCNetModel.FK_AccessToModuleFunctions_ModulesFunctions" FromRole="ModulesFunctions" ToRole="AccessToModuleFunctions" />
+          <NavigationProperty Name="Function" Relationship="MVCNetModel.FK_ModulesFunctions_Functions" FromRole="ModulesFunctions" ToRole="Functions" />
+          <NavigationProperty Name="Module" Relationship="MVCNetModel.FK_ModulesFunctions_Modules" FromRole="ModulesFunctions" ToRole="Modules" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ClientNames" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Product" Relationship="MVCNetModel.FK_Product_Orders" FromRole="Orders" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ProductDescription" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Orders" Relationship="MVCNetModel.FK_Product_Orders" FromRole="Products" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AccessToModuleFunctions" Relationship="MVCNetModel.FK_AccessToModuleFunctions_Roles" FromRole="Roles" ToRole="AccessToModuleFunctions" />
+          <NavigationProperty Name="Users" Relationship="MVCNetModel.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Hash" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="Salt" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="AccessToModuleFunctions" Relationship="MVCNetModel.FK_AccessToModuleFunctions_Users" FromRole="Users" ToRole="AccessToModuleFunctions" />
+          <NavigationProperty Name="Role" Relationship="MVCNetModel.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_AccessToModuleFunctions_ModulesFunctions">
+          <End Role="ModulesFunctions" Type="MVCNetModel.ModulesFunction" Multiplicity="0..1" />
+          <End Role="AccessToModuleFunctions" Type="MVCNetModel.AccessToModuleFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ModulesFunctions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessToModuleFunctions">
+              <PropertyRef Name="ModuleFunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessToModuleFunctions_Roles">
+          <End Role="Roles" Type="MVCNetModel.Role" Multiplicity="0..1" />
+          <End Role="AccessToModuleFunctions" Type="MVCNetModel.AccessToModuleFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessToModuleFunctions">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AccessToModuleFunctions_Users">
+          <End Role="Users" Type="MVCNetModel.User" Multiplicity="0..1" />
+          <End Role="AccessToModuleFunctions" Type="MVCNetModel.AccessToModuleFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="AccessToModuleFunctions">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModulesFunctions_Functions">
+          <End Role="Functions" Type="MVCNetModel.Function" Multiplicity="1" />
+          <End Role="ModulesFunctions" Type="MVCNetModel.ModulesFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Functions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ModulesFunctions">
+              <PropertyRef Name="FunctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModulesFunctions_Modules">
+          <End Role="Modules" Type="MVCNetModel.Module" Multiplicity="1" />
+          <End Role="ModulesFunctions" Type="MVCNetModel.ModulesFunction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ModulesFunctions">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Orders">
+          <End Role="Products" Type="MVCNetModel.Product" Multiplicity="1" />
+          <End Role="Orders" Type="MVCNetModel.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Roles">
+          <End Role="Roles" Type="MVCNetModel.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="MVCNetModel.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVCNetModelStoreContainer" CdmEntityContainer="MVCDbEntitiesConnection">
+          <EntitySetMapping Name="AccessToModuleFunctions"><EntityTypeMapping TypeName="MVCNetModel.AccessToModuleFunction"><MappingFragment StoreEntitySet="AccessToModuleFunctions">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="UserID" ColumnName="UserID" />
+            <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+            <ScalarProperty Name="ModuleFunctionID" ColumnName="ModuleFunctionID" />
+            <ScalarProperty Name="HasAccess" ColumnName="HasAccess" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Functions"><EntityTypeMapping TypeName="MVCNetModel.Function"><MappingFragment StoreEntitySet="Functions">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Modules"><EntityTypeMapping TypeName="MVCNetModel.Module"><MappingFragment StoreEntitySet="Modules">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ModulesFunctions"><EntityTypeMapping TypeName="MVCNetModel.ModulesFunction"><MappingFragment StoreEntitySet="ModulesFunctions">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+            <ScalarProperty Name="FunctionID" ColumnName="FunctionID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Orders"><EntityTypeMapping TypeName="MVCNetModel.Order"><MappingFragment StoreEntitySet="Orders">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+            <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+            <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+            <ScalarProperty Name="ClientNames" ColumnName="ClientNames" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="MVCNetModel.Product"><MappingFragment StoreEntitySet="Products">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+            <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+            <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Roles"><EntityTypeMapping TypeName="MVCNetModel.Role"><MappingFragment StoreEntitySet="Roles">
+            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Name" ColumnName="Name" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Users"><EntityTypeMapping TypeName="MVCNetModel.User"><MappingFragment StoreEntitySet="Users">
+            <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+            <ScalarProperty Name="UserName" ColumnName="UserName" />
+            <ScalarProperty Name="Hash" ColumnName="Hash" />
+            <ScalarProperty Name="Salt" ColumnName="Salt" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MVCDbModel">
+        <EntityTypeShape EntityType="MVCNetModel.AccessToModuleFunction" Width="1.5" PointX="5.25" PointY="0.875" Height="2.2496956380208326" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCNetModel.Function" Width="1.5" PointX="0.75" PointY="1.375" Height="1.4279589843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCNetModel.Module" Width="1.5" PointX="0.75" PointY="5.375" Height="1.4279589843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCNetModel.ModulesFunction" Width="1.5" PointX="3" PointY="1.125" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCNetModel.Order" Width="1.5" PointX="8" PointY="4.875" Height="1.9210009765624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCNetModel.Product" Width="1.5" PointX="5.75" PointY="5" Height="1.7566536458333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCNetModel.Role" Width="1.5" PointX="3" PointY="4.375" Height="1.5923063151041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCNetModel.User" Width="1.5" PointX="3" PointY="6.75" Height="2.0853483072916674" IsExpanded="true" />
+        <AssociationConnector Association="MVCNetModel.FK_AccessToModuleFunctions_ModulesFunctions" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="2.08550048828125" />
+          <ConnectorPoint PointX="5.25" PointY="2.08550048828125" />
+        </AssociationConnector>
+        <AssociationConnector Association="MVCNetModel.FK_AccessToModuleFunctions_Roles" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="4.65625" />
+          <ConnectorPoint PointX="5.2447891666666671" PointY="4.6562499999999991" />
+          <ConnectorPoint PointX="5.4114558333333331" PointY="4.65625" />
+          <ConnectorPoint PointX="5.46875" PointY="4.65625" />
+          <ConnectorPoint PointX="5.46875" PointY="3.1246956380208326" />
+        </AssociationConnector>
+        <AssociationConnector Association="MVCNetModel.FK_AccessToModuleFunctions_Users" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.5" PointY="7.8272509765625" />
+          <ConnectorPoint PointX="5.3281225" PointY="7.8272509765625" />
+          <ConnectorPoint PointX="5.3281225" PointY="3.1246956380208326" />
+        </AssociationConnector>
+        <AssociationConnector Association="MVCNetModel.FK_ModulesFunctions_Functions" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.0889794921875" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="2.0889794921874993" />
+          <ConnectorPoint PointX="2.7083333333333335" PointY="2.0889794921875" />
+          <ConnectorPoint PointX="3" PointY="2.0889794921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="MVCNetModel.FK_ModulesFunctions_Modules" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.375" />
+          <ConnectorPoint PointX="2.625" PointY="5" />
+          <ConnectorPoint PointX="2.625" PointY="1.5757377460937492" />
+          <ConnectorPoint PointX="3" PointY="1.5757377460937492" />
+        </AssociationConnector>
+        <AssociationConnector Association="MVCNetModel.FK_Product_Orders" ManuallyRouted="false">
+          <ConnectorPoint PointX="7.25" PointY="5.8783268229166659" />
+          <ConnectorPoint PointX="8" PointY="5.8783268229166659" />
+        </AssociationConnector>
+        <AssociationConnector Association="MVCNetModel.FK_Users_Roles" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="5.9673063151041674" />
+          <ConnectorPoint PointX="3.75" PointY="6.75" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
